@@ -1,3 +1,16 @@
+/*!
+ * SNShare.js
+ * Author:bung
+ * Summary:
+ * License:MIT
+ * Version: 0.1.0
+ *
+ * URL:
+ * https://github.com/bung87/SNShare.js
+ * https://github.com/bung87/SNShare.js/blob/master/LICENSE
+ *
+ */
+
 (function($){
 
 		var options={

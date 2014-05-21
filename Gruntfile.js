@@ -1,4 +1,10 @@
-
+var mainBanner='/*!\n * <%= pkg.name %>.js\n'+
+      ' * Author:<%= pkg.author %>\n'+
+      ' * Summary:<%= pkg.description %>\n'+
+      ' * License:<%= pkg.license %>\n'+
+      ' * Version: <%= pkg.version %>\n'+
+      ' *\n * URL:\n * <%= pkg.homepage %>\n'+
+      ' * <%= pkg.homepage %>/blob/master/LICENSE\n *\n */\n';
 module.exports = function(grunt) {
   var path = require('path');
   grunt.initConfig({
@@ -44,7 +50,7 @@ module.exports = function(grunt) {
     },   
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        banner: mainBanner
       },
       build: {
         src: 'dist/js/<%= pkg.name %>.js',
@@ -64,6 +70,9 @@ module.exports = function(grunt) {
             },{
               match:'prefix',
               replacement:'<%= prefix %>'
+            },{
+              match:'banner',
+              replacement:mainBanner
             }
           ]
         },
@@ -78,14 +87,7 @@ module.exports = function(grunt) {
     var src=grunt.template.process('src/js/<%= pkg.name %>.js');
     var dest=grunt.template.process('dist/js/<%= pkg.name %>.js');
     
-    var banner=grunt.template.process('/*!\n* <%= pkg.name %>.js\n'+
-      '* Author:<%= pkg.author %>\n'+
-      '* Summary:<%= pkg.description %>\n'+
-      '* License:<%= pkg.license %>\n'+
-      '* Version: <%= pkg.version %>\n'+
-      '*\n* URL:\n* <%= pkg.homepage %>\n'+
-      '* <%= pkg.homepage %>/blob/master/LICENSE\n*\n*/'
-      );
+    var banner=grunt.template.process(mainBanner);
    
     var c=grunt.file.read(src);
     grunt.file.write(dest, banner+c );
