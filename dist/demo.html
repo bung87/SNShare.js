@@ -3,10 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <title>SNShare</title>
-<link rel="stylesheet" type="text/css" href="css/style.css?rel=Mon May 26 2014 00:40:57">
+<script src="http://rawgithub.com/LearnBoost/expect.js/master/expect.js"></script>
+  <script src="http://rawgithub.com/tmcw/happen/master/happen.js"></script>
+  <script src="http://rawgithub.com/visionmedia/mocha/master/mocha.js" charset="UTF-8"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css?rel=Mon May 26 2014 01:40:40">
 <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
-
-<script src="js/SNShare.min.js?rel=Mon May 26 2014 00:40:57" type="text/javascript"></script>
+<script>
+    mocha.setup('bdd');
+    $(function() {
+      (window.mochaPhantomJS || mocha).run();
+    });
+  </script>
+<script src="js/SNShare.min.js?rel=Mon May 26 2014 01:40:40" type="text/javascript"></script>
+<script src="js/SNShare.test.js?rel=Mon May 26 2014 01:40:40" type="text/javascript"></script>
 <script type="text/javascript">
 snsshare({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"]});
 </script>
