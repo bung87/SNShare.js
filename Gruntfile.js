@@ -81,7 +81,20 @@ module.exports = function(grunt) {
           {expand: true, flatten: true, src: ['src/js/<%= pkg.name %>.js'], dest: 'dist/js/'}
         ]
       }
-    }
+    },
+    connect: {
+
+      server: {
+      options: {
+        debug:true,
+        port: 8080,
+        keepalive:true,
+        hostname:'*',
+        base: 'dist',
+        open:'http://localhost:8080/demo.html'
+        }
+      }
+  }
   });
   grunt.registerTask('prepare', 'prepare to dist' ,function(){
     var src=grunt.template.process('src/js/<%= pkg.name %>.js');
@@ -98,11 +111,18 @@ module.exports = function(grunt) {
             '@include sprite-classes;';
     grunt.file.write('src/scss/style.scss', grunt.template.process(scss) );
   });
+
+
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-fancy-sprites');
   grunt.loadNpmTasks('grunt-contrib-sass');
  
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
+    grunt.registerTask('test','test',function(){
+    grunt.task.run(['connect:server']);
+    // grunt.log.writeln('Starting static web server in "dist" on port 9001.');
+  });
 
 };
