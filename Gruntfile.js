@@ -61,6 +61,10 @@ module.exports = function(grunt) {
       dist: {
         options: {
           patterns: [
+          {
+          match: 'timestamp',
+          replacement: '<%= grunt.template.today() %>'
+          },
             {
               match: 'name',
               replacement: '<%= pkg.name %>'
@@ -119,9 +123,15 @@ module.exports = function(grunt) {
  
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.registerTask('build',['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
   grunt.registerTask('default', ['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
     grunt.registerTask('test','test',function(){
-    grunt.task.run(['connect:server']);
+      if(grunt.file.isDir('dist')){
+        
+      }else{
+        grunt.task.run(['build']);
+      }
+      grunt.task.run(['connect:server']);
     // grunt.log.writeln('Starting static web server in "dist" on port 9001.');
   });
 
