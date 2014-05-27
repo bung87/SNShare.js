@@ -12,7 +12,8 @@
 			summary:'summarysummarysummarysummary',
 			empty:'',
 			reason:'reasonreasonreasonreason',
-			pengyou:'pengyou'
+			pengyou:'pengyou',
+			cb:$.noop
 		};
 		
 		var sns_args={
@@ -116,6 +117,7 @@
         var iLeft = (window.screen.availWidth-iWidth)/2 ;
     	var href=url_generate.call(options,which);
     	var win = window.open(href, name,'top='+ iTop +',left=' + iLeft + ',height= '+iHeight+',width='+iWidth+',resizable=yes,scrollbars=yes');
+    	return win;
 	};
 	window.@@prefix=function(opts){
 		$.extend(options,opts);
@@ -125,7 +127,8 @@
 			var $this=$(this),c=$this.attr('class'),reg=/@@prefix-(\w+)/,m=[];
 			if(reg.test(c)){
 				m=c.match(reg);
-				open(m[1]);
+				var win=open(m[1]);
+				options.cb.call(win);
 			}
 		});
 	
