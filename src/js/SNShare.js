@@ -1,5 +1,13 @@
 @@banner
-(function($){
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery'], factory);
+  } else {
+    // Browser globals
+    factory(jQuery);
+  }
+})(function($){
 
 		var options={
 			title:document.title,
@@ -110,26 +118,35 @@
 				return u+s.join('&');
 		}
 		
-	function open(which){
-		var iHeight=options.widnowHeight;
-        var iWidth=options.windowWidth;
+	function open(which,opts){
+		var _opts = options || opts;
+		var iHeight=_opts.widnowHeight;
+        var iWidth=_opts.windowWidth;
         var iTop = (window.screen.availHeight-iHeight)/2 ;
         var iLeft = (window.screen.availWidth-iWidth)/2 ;
     	var href=url_generate.call(options,which);
     	var win = window.open(href, name,'top='+ iTop +',left=' + iLeft + ',height= '+iHeight+',width='+iWidth+',resizable=yes,scrollbars=yes');
     	return win;
 	};
-	window.@@prefix=function(opts){
-		$.extend(options,opts);
-	}
-	$(document).on('click',".@@prefix",function(e){
+	function bind($selector,options){
+		$selector.on('click',".@@prefix",function(e){
 			e.preventDefault();
 			var $this=$(this),c=$this.attr('class'),reg=/@@prefix-(\w+)/,m=[];
 			if(reg.test(c)){
 				m=c.match(reg);
-				var win=open(m[1]);
+				var win=open(m[1],options);
 				options.cb.call(win);
 			}
 		});
+	}
+	window.@@prefix=function(opts){
+		$.extend(options,opts);
+		bind($(document))
+	}
+	$.fn.@@prefix = function(opts){
+		var options = $.extend(true,{},options,opts);
+		bind(this,options);
+	}
+
 	
-})(jQuery);
+});
