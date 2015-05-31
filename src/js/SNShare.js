@@ -128,24 +128,22 @@
     	var win = window.open(href, name,'top='+ iTop +',left=' + iLeft + ',height= '+iHeight+',width='+iWidth+',resizable=yes,scrollbars=yes');
     	return win;
 	};
-	function bind($selector,options){
-		$selector.on('click',".@@prefix",function(e){
-			e.preventDefault();
-			var $this=$(this),c=$this.attr('class'),reg=/@@prefix-(\w+)/,m=[];
+	function bind($selector){
+		$selector.on('@@prefix',function(e,$target,options){
+			var $this=$target.find('.@@prefix'),c=$this.attr('class'),reg=/@@prefix-(\w+)/,m=[];
 			if(reg.test(c)){
 				m=c.match(reg);
 				var win=open(m[1],options);
+				if($.isFunction(options.cb))
 				options.cb.call(win);
 			}
 		});
 	}
 	window.@@prefix=function(opts){
-		$.extend(options,opts);
 		bind($(document))
 	}
 	$.fn.@@prefix = function(opts){
-		var options = $.extend(true,{},options,opts);
-		bind(this,options);
+		bind(this);
 	}
 
 	
