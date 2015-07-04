@@ -140,7 +140,7 @@ module.exports = function(grunt) {
  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('build',['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build','copy:main']);
+  grunt.registerTask('build',['prepare:dist','replace:dist','fancySprites:dist','uglify:build','copy:main']);
   // grunt.registerTask('default', ['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
     grunt.registerTask('run','test',function(){
       if(grunt.file.isDir('dist')){
