@@ -70,7 +70,7 @@ module.exports = function(grunt) {
           patterns: [
           {
           match: 'timestamp',
-          replacement: '<%= grunt.template.today() %>'
+          replacement: '<%= grunt.template.today("yyyy_mm_dd_HH_MM_ss") %>'
           },
             {
               match: 'name',
@@ -105,7 +105,17 @@ module.exports = function(grunt) {
         open:'http://localhost:8080/demo.html'
         }
       }
+  },
+  copy: {
+  main: {
+    files: [
+      // includes files within path
+      {expand: true, flatten: true, src: ['src/js/SNShare.test.js'], dest: 'dist/js/', filter: 'isFile'},
+
+
+    ]
   }
+}
   });
   grunt.registerTask('prepare', 'prepare to dist' ,function(){
     var src=grunt.template.process('src/js/<%= pkg.name %>.js');
@@ -127,12 +137,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-fancy-sprites');
   grunt.loadNpmTasks('grunt-contrib-sass');
- 
+ grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('build',['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
-  grunt.registerTask('default', ['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
-    grunt.registerTask('test','test',function(){
+  grunt.registerTask('build',['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build','copy:main']);
+  // grunt.registerTask('default', ['prepare:dist','replace:dist','fancySprites:dist','sass:dist','uglify:build']);
+    grunt.registerTask('run','test',function(){
       if(grunt.file.isDir('dist')){
         
       }else{

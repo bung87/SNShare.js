@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/bung87/SNShare.js.svg?branch=master)  
+
 SNShare.js
 =====================================
 ###sprites

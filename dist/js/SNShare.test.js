@@ -7,6 +7,8 @@ $(document).on('ready',function(){
  $('.snsshare').each(function(i){
     var self=this;
     setTimeout(function(){fn.call(self)},1000*(i));
- 
+    
+        
+       
     });
 });
