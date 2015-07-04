@@ -50,7 +50,14 @@ module.exports = function(grunt) {
     },   
     uglify: {
       options: {
-        banner: mainBanner
+        banner: mainBanner,
+        // beautify: {
+        //                 width: 50,
+        //                 beautify: true
+        //             },
+        mangle: {
+            except: ['snsshare']
+        }
       },
       build: {
         src: 'dist/js/<%= pkg.name %>.js',
