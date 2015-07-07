@@ -1,13 +1,13 @@
 @@banner
-(function (factory) {
+(function (global,factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
   } else {
     // Browser globals
-    factory(jQuery);
+    factory(global.jQuery);
   }
-})(function($){
+})(this,function($){
 
 		var options={
 			title:document.title,
