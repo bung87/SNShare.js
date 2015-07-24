@@ -9,7 +9,7 @@
   }
 })(this,function($){
 
-		var options={
+		var defaultOptions={
 			title:document.title,
 			images:'',
 			url:document.location.href,
@@ -22,9 +22,8 @@
 			reason:'reasonreasonreasonreason',
 			pengyou:'pengyou',
 			cb:$.noop
-		};
-		
-		var sns_args={
+		}
+		,sns_args={
 			tsina:{
 				_shareUrl:"http://service.weibo.com/share/share.php?",
 				_images_sep:'||',
@@ -103,47 +102,48 @@
 			}
 		};
 		function url_generate(which){
-			var s = [];
-				var a=sns_args[which];
-				var u=a['_shareUrl'];
-				var v;
-				for(var i in a['kwargs']){
-					if(a['kwargs'][i]=="images"){
-						v=encodeURIComponent(typeof this.images=="object" ? this.images.join(a['_images_sep']) : this.images)
-					}else{
-						v=encodeURIComponent(this[a['kwargs'][i]]||'');
-					}
-					s.push(i + '=' + v);
+			var s = []
+			,a=sns_args[which]
+			,u=a['_shareUrl']
+			,v;
+			for(var i in a['kwargs']){
+				if(a['kwargs'][i]=="images"){
+					v=encodeURIComponent(typeof this.images=="object" ? this.images.join(a['_images_sep']) : this.images)
+				}else{
+					v=encodeURIComponent(this[a['kwargs'][i]]||'');
 				}
-				return u+s.join('&');
+				s.push(i + '=' + v);
+			}
+			return u+s.join('&');
 		}
 		
-	function open(which,opts){
-		var _opts = options || opts;
-		var iHeight=_opts.widnowHeight;
-        var iWidth=_opts.windowWidth;
-        var iTop = (window.screen.availHeight-iHeight)/2 ;
-        var iLeft = (window.screen.availWidth-iWidth)/2 ;
-    	var href=url_generate.call(options,which);
-    	var win = window.open(href, name,'top='+ iTop +',left=' + iLeft + ',height= '+iHeight+',width='+iWidth+',resizable=yes,scrollbars=yes');
+	function open(which,_opts){
+		var iHeight=_opts.widnowHeight
+        ,iWidth=_opts.windowWidth
+        ,iTop = (window.screen.availHeight-iHeight)/2 
+        ,iLeft = (window.screen.availWidth-iWidth)/2 
+    	,href=url_generate.call(_opts,which)
+    	,win = window.open(href, name,'top='+ iTop +',left=' + iLeft + ',height= '+iHeight+',width='+iWidth+',resizable=yes,scrollbars=yes');
     	return win;
 	};
-	function bind($selector){
-		$selector.on('@@prefix',function(e,$target,options){
+	function bind($selector,options){
+		$selector.on('@@prefix',function(e,$target,args){
+			e.stopImmediatePropagation();
+			var opts = $.extend(true,{},defaultOptions,options,args)
 			var $this=$target.find('.@@prefix'),c=$this.attr('class'),reg=/@@prefix-(\w+)/,m=[];
 			if(reg.test(c)){
 				m=c.match(reg);
-				var win=open(m[1],options);
-				if($.isFunction(options.cb))
-				options.cb.call(win);
+				var win=open(m[1],opts);
+				if($.isFunction(opts.cb))
+				opts.cb.call(win);
 			}
 		});
 	}
 	window.@@prefix=function(opts){
-		bind($(document))
+		bind($(document),opts)
 	}
 	$.fn.@@prefix = function(opts){
-		bind(this);
+		bind(this,opts);
 	}
 
 	

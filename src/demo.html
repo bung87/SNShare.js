@@ -12,12 +12,19 @@
 <script src="js/@@name.min.js?rel=@@timestamp" type="text/javascript"></script>
 <script src="js/@@name.test.js?rel=@@timestamp" type="text/javascript"></script>
 <script type="text/javascript">
-@@prefix({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"],
-    cb:function(){
-        var self=this;
-          setTimeout(function(){self.close();},1000);
-    
-}});
+$(function(){
+    var $links =$('#links');
+    $links.on('click','a',function(e){
+        console.log(111)
+        $links.trigger('snsshare', [$(e.target), {}]);
+    })
+    $links.snsshare({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"],
+        cb:function(){
+            var self=this;
+              setTimeout(function(){self.close();},1000);
+        
+    }});
+});
 </script>
 </head>
 
@@ -25,7 +32,7 @@
 <h1><a title="@@name" href="@@repo">@@name</a></h1>
 
 <h2>demo</h2>
-<div>
+<div id="links">
 	<a title="分享到新浪微博" href="#" class="@@prefix @@prefix-tsina"></a> 
 	<a title="分享到新腾讯微博"  href="#" class="@@prefix @@prefix-tqq"></a> 
 	<a title="分享到QQ空间" href="#" class="@@prefix @@prefix-qzone"></a> 

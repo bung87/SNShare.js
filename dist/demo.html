@@ -6,18 +6,25 @@
 
   <script src="http://rawgithub.com/tmcw/happen/master/happen.js"></script>
 
-<link rel="stylesheet" type="text/css" href="css/style.css?rel=2015_07_07_16_41_16">
+<link rel="stylesheet" type="text/css" href="css/style.css?rel=2015_07_25_03_29_58">
 <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 
-<script src="js/SNShare.min.js?rel=2015_07_07_16_41_16" type="text/javascript"></script>
-<script src="js/SNShare.test.js?rel=2015_07_07_16_41_16" type="text/javascript"></script>
+<script src="js/SNShare.min.js?rel=2015_07_25_03_29_58" type="text/javascript"></script>
+<script src="js/SNShare.test.js?rel=2015_07_25_03_29_58" type="text/javascript"></script>
 <script type="text/javascript">
-snsshare({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"],
-    cb:function(){
-        var self=this;
-          setTimeout(function(){self.close();},1000);
-    
-}});
+$(function(){
+    var $links =$('#links');
+    $links.on('click','a',function(e){
+        console.log(111)
+        $links.trigger('snsshare', [$(e.target), {}]);
+    })
+    $links.snsshare({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"],
+        cb:function(){
+            var self=this;
+              setTimeout(function(){self.close();},1000);
+        
+    }});
+});
 </script>
 </head>
 
@@ -25,7 +32,7 @@ snsshare({images:["https://avatars0.githubusercontent.com/u/2238294?s=460"],
 <h1><a title="SNShare" href="https://github.com/bung87/SNShare.js.git">SNShare</a></h1>
 
 <h2>demo</h2>
-<div>
+<div id="links">
 	<a title="分享到新浪微博" href="#" class="snsshare snsshare-tsina"></a> 
 	<a title="分享到新腾讯微博"  href="#" class="snsshare snsshare-tqq"></a> 
 	<a title="分享到QQ空间" href="#" class="snsshare snsshare-qzone"></a> 
