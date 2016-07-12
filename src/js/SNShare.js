@@ -68,15 +68,7 @@
 					rurl:'url'
 				}
 			},
-			t163:{
-				_shareUrl :"http://t.163.com/article/user/checkLogin.do?",
-				_images_sep:',',
-				kwargs:{
-					source:'site_name',
-					info:'summary',
-					images:'images'
-				}
-			},
+			
 			tsohu:{
 				_shareUrl:"http://t.sohu.com/third/post.jsp?",
 				kwargs:{
