@@ -68,15 +68,6 @@
 					rurl:'url'
 				}
 			},
-			
-			tsohu:{
-				_shareUrl:"http://t.sohu.com/third/post.jsp?",
-				kwargs:{
-					title:'summary',
-					url:'url',
-					pic:'images'
-				}
-			},
 			txpengyou:{
 				_shareUrl:"http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?",
 				kwargs:{
