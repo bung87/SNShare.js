@@ -72,7 +72,8 @@
 				_shareUrl:"http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?",
 				kwargs:{
 					to:'pengyou',
-					url:'url'
+					url:'url',
+					pics:'images'
 				}
 			},
 			douban:{
